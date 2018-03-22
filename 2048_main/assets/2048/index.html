@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2048</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+<div class="container">
+  <div class="heading">
+    <h1 class="title">2048</h1>
+    <div class="scores-container">
+      <div class="score-container">0</div>
+      <div class="best-container">0</div>
+    </div>
+  </div>
+
+  <div class="above-game">
+    <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+    <a class="restart-button">New Game</a>
+    <!--<a class="undo-button">Undo</a>-->
+    <a class="night-button">☾</a>
+    <a class="main-button">Menu</a>
+    <p class="user-display" id="user-d">Not logged in.</p>
+    <p id="timer"></p>
+    <!--<div id="night" style="padding:10px;">-->
+    <!--<a id="nightbtn"><img src="style/night.png"></a>-->
+    <!--</div>-->
+  </div>
+
+  <div class="game-container">
+    <div class="game-message">
+      <p></p>
+      <div class="lower">
+        <a class="account-button">Account</a>
+        <a class="globalStats-button">Global Stats</a>
+        <a class="keep-playing-button">Keep going</a>
+        <a class="retry-button">Try again</a>
+        <a class="confirm-button">OK</a>
+        <a class="cancel-button">Cancel</a>
+        <a class="backCreate-button">Back</a>
+        <a class="backLogin-button">Back</a>
+        <a class="accept-button">Accept</a>
+        <a class="reject-button">Reject</a>
+        <a class="cancelInvite-button">Cancel</a>
+        <a class="okay-button">Okay</a>
+        <a class="newGame-button">End Session</a>
+
+        <div class="accountMenu">
+          <form>
+            <p>Username:</p>
+            <input type="text" id="userNameIn">
+            <p>Password:</p>
+            <input type="password" id="passIn">
+            <a class="login-button">Login</a>
+            <a class="create-button">Create</a>
+            <a class="cancel2-button">Cancel</a>
+          </form>
+        </div>
+        <div class="accountLoginMenu">
+          <form>
+
+            <a class="friend-button">Friends</a>
+            <a class="stats-button">Stats</a>
+            <a class="multiplayer-button">Multiplayer</a>
+            <a class="logout-button">Logout</a>
+            <a class="cancel6-button">Cancel</a>
+          </form>
+        </div>
+
+        <div class="createMenu">
+          <form id = "createForm">
+            <p>Email:</p>
+            <input type="text" id="new-email">
+            <p>Username:</p>
+            <input type="text" id="new-username">
+            <p>Password:</p>
+            <input type="password" id="new-password">
+            <p>Confirm Password:</p>
+            <input type="password" id="new-confirmPassword">
+            <a class="createAcc-button">Create</a>
+            <a class="cancel3-button">Cancel</a>
+          </form>
+
+        </div>
+
+        <div class="friendsList">
+          <class id = "friend list">
+            <form>
+              <p>Friends:</p>
+              <div style = "border: inset; background-color: white;">
+                <output type="text" id="friends-list"></output>
+              </div>
+
+              <p>Add Friend:</p>
+              <input type="text" id="newFriend">
+              <a class="add-button">Add Friend</a>
+
+              <p>Pending Friends:</p>
+              <div style = "border: inset; background-color: white;">
+                <output type="text" id="friendsPending"></output>
+              </div>
+              <a class = "cancel4-button">Cancel</a>
+            </form>
+        </div>
+
+        <div class="statsList">
+          <table id = "Stats table">
+            <tr>
+              <th> </th>
+              <th id = "Hiswipe"> </th>
+              <th id = "Total Swipe"> </th>
+            </tr>
+            <tr>
+              <th id = "Up"> </th>
+              <th id = "highUp"> </th>
+              <th id = "totalUp"> </th>
+            </tr>
+            <tr>
+              <th id = "Left"> </th>
+              <th id = "highLeft"> </th>
+              <th id = "totalLeft"> </th>
+            </tr>
+            <tr>
+              <th id = "Down"> </th>
+              <th id = "highDown"> </th>
+              <th id = "totalDown"> </th>
+            </tr>
+            <tr>
+              <th id = "Right"> </th>
+              <th id = "highRight"> </th>
+              <th id = "totalRight"> </th>
+            </tr>
+          </table>
+
+          <a class = "High-score-Button">HighScore</a>
+          <a class = "cancel5-button">Cancel</a>
+        </div>
+
+        <div class = "highScoreList">
+          <table id = "highScore Table">
+            <tr>
+              <th id = "highScore Label"></th>
+              <th id = "highScore"></th>
+            </tr>
+            <tr>
+              <th id = "HighScore Date Label"></th>
+              <th id = "HighScore Date"></th>
+            </tr>
+            <tr>
+              <th id = "Win Label"></th>
+              <th id = "Win"></th>
+            </tr>
+            <tr>
+              <th id = "Loss Label"></th>
+              <th id = "Loss"></th>
+            </tr>
+            <tr>
+              <th id = "Tie Label"></th>
+              <th id = "Tie"></th>
+            </tr>
+          </table>
+
+          <a class = "your-stats-button">Stats</a>
+          <a class = "cancel8-button">Cancel</a>
+        </div>
+
+        <div class = "GlobalList">
+          <table id = "TopPlayer table">
+            <tr>
+              <th>Top Player</th>
+              <th id = userName> </th>
+
+            </tr>
+            <tr>
+              <th id = globalHigh> HighScore</th>
+              <th id = globalHighScore> </th>
+            </tr>
+            <tr>
+              <th id = globalDateLabel>Date</th>
+              <th id = globalDate> </th>
+            </tr>
+          </table>
+
+          <table id = "Global High stats">
+            <tr>
+              <th> HighScore Swipes</th>
+              <th> </th>
+            </tr>
+            <tr>
+              <th id = globalhighUpLabel> Up</th>
+              <th id = globalhighUp> </th>
+            </tr>
+            <tr>
+              <th id = globalhighLeftLabel> Left</th>
+              <th id = globalhighLeft> </th>
+            </tr>
+            <tr>
+              <th id = globalhighDownLabel> Down</th>
+              <th id = globalhighDown> </th>
+            </tr>
+            <tr>
+              <th id = globalhighRightLabel> Right</th>
+              <th id = globalrightLabel> </th>
+            </tr>
+          </table>
+          <a class = "pg2-button">Next</a>
+          <a class = "cancel7-button">Cancel</a>
+        </div>
+
+        <div class = "GlobalList2">
+          <table id = "Global Total stats">
+            <tr>
+              <th>Global Totals</th>
+              <th></th>
+            </tr>
+            <tr>
+              <th id = "globalTotalUpLabel">Swipes Up</th>
+              <th id = "globalTotalUp"> </th>
+            </tr>
+            <tr>
+              <th id = "globalTotalUpLabel">Swipes Left</th>
+              <th id = "globalTotalLeft"> </th>
+            </tr>
+            <tr>
+              <th id = "globalTotalUpLabel">Swipes Down</th>
+              <th id = "globalTotalDown"> </th>
+            </tr>
+            <tr>
+              <th id = "globalTotalRightLabel">Swipes Right</th>
+              <th id = "globalTotalRight"> </th>
+            </tr>
+            <tr>
+              <th id = "userCountLable">User Count</th>
+              <th id = "userCount"></th>
+            </tr>
+          </table>
+          <a class = "pg1-button">Back</a>
+          <a class = "cancel9-button">Cancel</a>
+        </div>
+
+
+
+        <div class="multiplayerMenu">
+          <form>
+            <p>Friend:   HighScore</p>
+            <div style = "border: inset; background-color: white;">
+            <output type="text" id="friends-highscoreList">Test output</output>
+            </div>
+            <p>Challenge A Friend:</p>
+            <input type="text" id="friend-challenge">
+            <a class="challenge-button">Challenge</a>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+    </div>
+
+    <div class="tile-container">
+
+    </div>
+  </div>
+
+</div>
+
+<!--DEBUGGiNG  Purposes-->
+<p id = "check"> </p>
+<p id = "upS"> </p>
+<p id = "leftS"> </p>
+<p id = "rightS"> </p>
+<p id = "downS"> </p>
+<p id = "wins"> </p>
+<p id = "losts"> </p>
+<p id = "highUpS"> </p>
+<p id = "highLowS"> </p>
+<p id = "highLeftS"> </p>
+<p id = "highRightS"> </p>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+<!--<script src="js/firebase.js"></script>-->
+<script src="js/bind_polyfill.js"></script>
+<script src="js/classlist_polyfill.js"></script>
+<script src="js/animframe_polyfill.js"></script>
+<script src="js/keyboard_input_manager.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/html_actuator.js"></script>
+<script src="js/grid.js"></script>
+<script src="js/tile.js"></script>
+<script src="js/local_storage_manager.js"></script>
+<script src="js/DBHandler.js"></script>
+<script src="js/DBUtil.js"></script>
+<script src="js/StatsManager.js"></script>
+<script src="js/game_manager.js"></script>
+<script src="js/application.js"></script>
+<script src="js/nightmode.js"></script>
+</body>
+</html>
